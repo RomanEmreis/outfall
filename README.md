@@ -1,6 +1,8 @@
 # outfall
 Experimental low-level HTTP Library for Rust
 
+[![CI](https://github.com/RomanEmreis/outfall/actions/workflows/rust.yml/badge.svg)](https://github.com/RomanEmreis/outfall/actions/workflows/rust.yml)
+
 # Getting Started
 ```toml
 [dependencies]
