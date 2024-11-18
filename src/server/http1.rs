@@ -1,10 +1,33 @@
-﻿use std::future::Future;
-use std::io::{Error, ErrorKind::{BrokenPipe, InvalidData, InvalidInput}};
-use tokio::net::TcpStream;
-use bytes::{Bytes, BytesMut};
-use http::{HeaderName, HeaderValue, Request, Response, Version};
-use httparse::EMPTY_HEADER;
-use tokio::io::{AsyncReadExt, AsyncWriteExt, BufReader};
+﻿use bytes::{
+    Bytes, 
+    BytesMut
+};
+use http::{
+    HeaderName,
+    HeaderValue,
+    Request,
+    Response,
+    Version
+};
+use tokio::{
+    net::TcpStream,
+    io::{
+        AsyncReadExt,
+        AsyncWriteExt,
+        BufReader
+    }
+};
+use std::{
+    future::Future,
+    io::{
+        ErrorKind::{
+            BrokenPipe,
+            InvalidData,
+            InvalidInput
+        },
+        Error
+    }
+};
 
 pub struct Connection {
     reader: BufReader<TcpStream>
@@ -60,7 +83,7 @@ impl Connection {
                 return Err(Error::new(BrokenPipe, "Client closed the connection"));
             }
 
-            let mut headers = [EMPTY_HEADER; 16];
+            let mut headers = [httparse::EMPTY_HEADER; 16];
             let mut req = httparse::Request::new(&mut headers);
             match req.parse(&buffer[..]) {
                 Ok(httparse::Status::Complete(headers_size)) => {
