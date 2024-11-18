@@ -1,9 +1,10 @@
 ﻿use std::future::Future;
+use std::io::{Error, ErrorKind::{BrokenPipe, InvalidData, InvalidInput}};
 use tokio::net::TcpStream;
 use bytes::{Bytes, BytesMut};
 use http::{HeaderName, HeaderValue, Request, Response, Version};
 use httparse::EMPTY_HEADER;
-use tokio::io::{AsyncReadExt, AsyncWriteExt, BufReader, Error, ErrorKind::{BrokenPipe, InvalidData, InvalidInput}};
+use tokio::io::{AsyncReadExt, AsyncWriteExt, BufReader};
 
 pub struct Connection {
     reader: BufReader<TcpStream>
