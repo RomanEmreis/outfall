@@ -1,2 +1,2 @@
 # outfall
-Low-Level HTTP Library for Rust
+Experimental low-level HTTP Library for Rust

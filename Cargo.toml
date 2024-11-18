@@ -1,0 +1,24 @@
+[package]
+name = "outfall"
+version = "0.0.1"
+edition = "2021"
+description = "Experimental low-level HTTP Library for Rust"
+authors = ["Roman Emreis <roman.emreis@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/RomanEmreis/outfall"
+categories = ["web-programming::http-server"]
+keywords = ["outfall", "http"]
+
+[dependencies]
+bytes = "1.8.0"
+http = "1.1.0"
+httparse = "1.9.5"
+tokio = { version = "1.41.1", features = ["sync", "net"] }
+
+[dev-dependencies]
+tokio = { version = "1.41.1", features = ["full"] }
+
+[[example]]
+name = "simple_http"
+path = "examples/simple_http.rs"
