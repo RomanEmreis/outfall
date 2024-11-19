@@ -1,25 +1,9 @@
-# outfall
-Experimental low-level HTTP Library for Rust
-
-[![CI](https://github.com/RomanEmreis/outfall/actions/workflows/rust.yml/badge.svg)](https://github.com/RomanEmreis/outfall/actions/workflows/rust.yml)
-
-# Getting Started
-```toml
-[dependencies]
-outfall = "0.0.2"
-tokio = "1.41.1"
-```
-
-```rust
-use std::io::Error;
+﻿use std::io::Error;
+use bytes::Bytes;
+use http::{Request, Response};
 use tokio::io;
 use tokio::net::TcpListener;
-use outfall::server::http1;
-use bytes::Bytes;
-use http::{
-    Request, 
-    Response
-};
+use outfall::server::http2;
 
 async fn request_handler(_req: Request<Bytes>) -> io::Result<Response<Bytes>> {
     Response::builder()
@@ -36,9 +20,8 @@ async fn main() -> io::Result<()> {
         let (stream, _) = tcp_listener.accept().await?;
 
         tokio::spawn(async move {
-            let conn = http1::Connection::new(stream);
-            conn.run(request_handler).await;
+            let conn = http2::Connection::new(stream);
+            conn.run(request_handler).await
         });
     }
 }
-```

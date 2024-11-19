@@ -1,6 +1,6 @@
 [package]
 name = "outfall"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 description = "Experimental low-level HTTP Library for Rust"
 authors = ["Roman Emreis <roman.emreis@outlook.com>"]
@@ -13,12 +13,24 @@ keywords = ["outfall", "http"]
 [dependencies]
 bytes = "1.8.0"
 http = "1.1.0"
-httparse = "1.9.5"
 tokio = { version = "1.41.1", features = ["sync", "net", "io-std", "io-util"] }
+httparse = { version = "1.9.5", optional = true }
+h2 = { version = "0.4.6", features = ["stream"], optional = true }
 
 [dev-dependencies]
 tokio = { version = "1.41.1", features = ["full"] }
 
+[features]
+default = ["http1"]
+full = ["http1", "http2"]
+
+http1 = ["dep:httparse"]
+http2 = ["dep:h2"]
+
 [[example]]
-name = "simple_http"
-path = "examples/simple_http.rs"
+name = "http1"
+path = "examples/http1.rs"
+
+[[example]]
+name = "http2"
+path = "examples/http2.rs"
